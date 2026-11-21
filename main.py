@@ -173,13 +173,13 @@ async def predict_arima(
 
     series_qty = df["Qty_Terjual"].astype("float64")
 
-    # 5. Evaluasi Out-of-Sample Kronologis 80:20 (sama persis dengan eksperimen Colab)
+    # 5. Evaluasi Out-of-Sample Kronologis 80:20
     train_size = int(round(len(series_qty) * 0.8))
     train_s = series_qty.iloc[:train_size]
     test_s = series_qty.iloc[train_size:]
 
     try:
-        eval_model = ARIMA(train_s, order=order).fit(method_kwargs={"warn_convergence": False})
+        eval_model = ARIMA(train_s, order=order).fit(method="innovations_mle")
         fc_test = eval_model.forecast(steps=len(test_s))
 
         mape_val = float(mean_absolute_percentage_error(test_s, fc_test) * 100)
@@ -187,6 +187,15 @@ async def predict_arima(
         rmse_val = float(np.sqrt(mean_squared_error(test_s, fc_test)))
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Gagal mengevaluasi model ARIMA: {str(e)}")
+
+    # 6. Fitting Ulang Penuh pada seluruh data historis untuk proyeksi ke depan
+    try:
+        full_fit = ARIMA(series_qty, order=order).fit(method="innovations_mle")
+        forecast_res = full_fit.get_forecast(steps=forecast_steps)
+        pred_mean = forecast_res.predicted_mean
+        conf_int = forecast_res.conf_int()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Gagal menghasilkan proyeksi ARIMA: {str(e)}")
 
     # 6. Fitting Ulang Penuh pada seluruh data historis untuk proyeksi ke depan
     try:
