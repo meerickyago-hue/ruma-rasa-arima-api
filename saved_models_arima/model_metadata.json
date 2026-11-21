@@ -1,0 +1,80 @@
+{
+    "project": "Sistem Peramalan Penjualan Restoran Ruma Rasa",
+    "dataset_range": "Juni 2024 - November 2026 (30 Bulan)",
+    "split_ratio": "80:20 Kronologis (24 Bulan Training : 6 Bulan Testing)",
+    "created_at": "2026-11-18 07:58:32",
+    "menus": {
+        "Nasi Goreng Kampung": {
+            "model_file": "arima_model_nasi_goreng_kampung.pkl",
+            "order": [
+                1,
+                1,
+                0
+            ],
+            "order_label": "ARIMA(1, 1, 0)",
+            "harga_satuan_rp": 25000,
+            "aic": 343.53,
+            "bic": 345.81,
+            "evaluasi_testing_6_bulan": {
+                "mape_pct": 6.12,
+                "mae_item": 187.62,
+                "rmse_item": 215.2,
+                "kategori": "Sangat Baik (Highly Accurate)"
+            },
+            "proyeksi_desember_2026": {
+                "prediksi_qty": 3107,
+                "ci_95_lower": 2379,
+                "ci_95_upper": 3836,
+                "estimasi_omzet_rp": 77675000
+            }
+        },
+        "Ice Lychee Tea": {
+            "model_file": "arima_model_ice_lychee_tea.pkl",
+            "order": [
+                1,
+                1,
+                0
+            ],
+            "order_label": "ARIMA(1, 1, 0)",
+            "harga_satuan_rp": 18000,
+            "aic": 349.48,
+            "bic": 351.75,
+            "evaluasi_testing_6_bulan": {
+                "mape_pct": 5.97,
+                "mae_item": 214.8,
+                "rmse_item": 245.75,
+                "kategori": "Sangat Baik (Highly Accurate)"
+            },
+            "proyeksi_desember_2026": {
+                "prediksi_qty": 3622,
+                "ci_95_lower": 2794,
+                "ci_95_upper": 4451,
+                "estimasi_omzet_rp": 65196000
+            }
+        },
+        "Spaghetti Aglio Olio": {
+            "model_file": "arima_model_spaghetti_aglio_olio.pkl",
+            "order": [
+                1,
+                1,
+                0
+            ],
+            "order_label": "ARIMA(1, 1, 0)",
+            "harga_satuan_rp": 32000,
+            "aic": 324.9,
+            "bic": 327.17,
+            "evaluasi_testing_6_bulan": {
+                "mape_pct": 6.1,
+                "mae_item": 128.35,
+                "rmse_item": 146.93,
+                "kategori": "Sangat Baik (Highly Accurate)"
+            },
+            "proyeksi_desember_2026": {
+                "prediksi_qty": 2132,
+                "ci_95_lower": 1643,
+                "ci_95_upper": 2621,
+                "estimasi_omzet_rp": 68224000
+            }
+        }
+    }
+}
